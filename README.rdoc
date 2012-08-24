@@ -15,7 +15,7 @@ A copy of the released version can be downloaded from {Little Stream Software}[h
 
 == Install
 
-1. Follow the Redmine plugin installation steps at: http://www.redmine.org/wiki/redmine/Plugins Make sure the plugin is installed to +vendor/plugins/customer_plugin+
+1. Follow the Redmine plugin installation steps at: http://www.redmine.org/wiki/redmine/Plugins Make sure the plugin is installed to +plugins/customer_plugin+
 2. Setup the database using the migrations. +rake db:migrate_plugins+
 3. Login to your Redmine install as an Administrator
 4. Setup the permissions for your roles
@@ -33,12 +33,12 @@ A copy of the released version can be downloaded from {Little Stream Software}[h
 === Zip file
 
 1. Download the latest zip file from https://projects.littlestreamsoftware.com
-2. Unzip the file to your Redmine into vendor/plugins
+2. Unzip the file to your Redmine into plugins/
 3. Restart your Redmine
 
 === Git
 
-1. Open a shell to your Redmine's vendor/plugins/customer_plugin folder
+1. Open a shell to your Redmine's plugins/customer_plugin folder
 2. Update your git copy with +git pull+
 3. Restart your Redmine
 
