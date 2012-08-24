@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe CustomersController do
-  fixtures :projects
+  fixtures :projects, :users
   render_views #slow, but we don't have view tests
 
   before do
