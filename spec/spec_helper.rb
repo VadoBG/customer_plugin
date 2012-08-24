@@ -6,10 +6,9 @@ ENV["RAILS_ENV"] = "test"
 redmine_root = ENV["REDMINE_ROOT"] || File.dirname(__FILE__) + "/../../.."
 require File.expand_path(redmine_root + "/config/environment")
 
-require 'spec'
-require 'spec/rails'
+require 'rspec/rails'
 
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
   # in your config/boot.rb

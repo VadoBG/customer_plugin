@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 require "fileutils"
-require 'rubygems'
-gem 'rspec'
-gem 'rspec-rails'
 
 Dir[File.expand_path(File.dirname(__FILE__)) + "/lib/tasks/**/*.rake"].sort.each { |ext| load ext }
 
@@ -16,8 +13,8 @@ REDMINE_LIB = File.expand_path(REDMINE_ROOT + '/lib')
 
 require 'rake'
 require 'rake/clean'
-require 'rake/rdoctask'
-require 'spec/rake/spectask'
+require 'rdoc/task'
+require 'rspec/core/rake_task'
 
 PROJECT_NAME = 'customer_plugin'
 ZIP_FILE = PROJECT_NAME + ".zip"
@@ -32,37 +29,38 @@ task :default => :spec
 task :stats => "spec:statsetup"
 
 desc "Run all specs in spec directory (excluding plugin specs)"
-Spec::Rake::SpecTask.new(:spec => spec_prereq) do |t|
-  t.spec_opts = ['--options', "\"#{PLUGIN_ROOT}/spec/spec.opts\""]
-  t.spec_files = FileList['spec/**/*_spec.rb']
+RSpec::Core::RakeTask.new(:spec => spec_prereq) do |t|
+  t.rspec_opts = ['--options', "\"#{PLUGIN_ROOT}/spec/spec.opts\""]
+  t.pattern = 'spec/**/*_spec.rb'
 end
 
 namespace :spec do
   desc "Run all specs in spec directory with RCov (excluding plugin specs)"
-  Spec::Rake::SpecTask.new(:rcov) do |t|
-    t.spec_opts = ['--options', "\"#{PLUGIN_ROOT}/spec/spec.opts\""]
-    t.spec_files = FileList['spec/**/*_spec.rb']
+  RSpec::Core::RakeTask.new(:rcov) do |t|
+    t.rspec_opts = ['--options', "\"#{PLUGIN_ROOT}/spec/spec.opts\""]
+    t.pattern = 'spec/**/*_spec.rb'
     t.rcov = true
+    t.rcov_opts ||= []
     t.rcov_opts << ["--rails", "--sort=coverage", "--exclude '/var/lib/gems,spec,#{REDMINE_APP},#{REDMINE_LIB}'"]
   end
   
-  desc "Print Specdoc for all specs (excluding plugin specs)"
-  Spec::Rake::SpecTask.new(:doc) do |t|
-    t.spec_opts = ["--format", "specdoc", "--dry-run"]
-    t.spec_files = FileList['spec/**/*_spec.rb']
+  desc "Print RSpecdoc for all specs (excluding plugin specs)"
+  RSpec::Core::RakeTask.new(:doc) do |t|
+    t.rspec_opts = ["--format", "specdoc", "--dry-run"]
+    t.pattern = 'spec/**/*_spec.rb'
   end
 
-  desc "Print Specdoc for all specs as HTML (excluding plugin specs)"
-  Spec::Rake::SpecTask.new(:htmldoc) do |t|
-    t.spec_opts = ["--format", "html:doc/rspec_report.html", "--loadby", "mtime"]
-    t.spec_files = FileList['spec/**/*_spec.rb']
+  desc "Print RSpecdoc for all specs as HTML (excluding plugin specs)"
+  RSpec::Core::RakeTask.new(:htmldoc) do |t|
+    t.rspec_opts = ["--format", "html:doc/rspec_report.html", "--loadby", "mtime"]
+    t.pattern = 'spec/**/*_spec.rb'
   end
 
   [:models, :controllers, :views, :helpers, :lib].each do |sub|
     desc "Run the specs under spec/#{sub}"
-    Spec::Rake::SpecTask.new(sub => spec_prereq) do |t|
-      t.spec_opts = ['--options', "\"#{PLUGIN_ROOT}/spec/spec.opts\""]
-      t.spec_files = FileList["spec/#{sub}/**/*_spec.rb"]
+    RSpec::Core::RakeTask.new(sub => spec_prereq) do |t|
+      t.rspec_opts = ['--options', "\"#{PLUGIN_ROOT}/spec/spec.opts\""]
+      t.pattern = "spec/#{sub}/**/*_spec.rb"
     end
   end
 end

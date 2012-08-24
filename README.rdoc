@@ -50,3 +50,11 @@ This plugin is licensed under the GNU GPL v2.  See LICENSE.txt and GPL.txt for d
 
 If you need help you can contact the maintainer at the Bug Tracker.  The bug tracker is located at: https://projects.littlestreamsoftware.com
 
+== Running tests
+
+1. Go to your redmine root directory
+2. Install the needed gems: bundle install
+3. Prepare the database: RAILS_ENV=test rake db:create db:migrate redmine:plugins db:schema:dump db:fixtures:load
+4. Run the tests with: rspec plugins/customer_plugin/spec
+
+NB: running the task directly from the plugin folder doesn't work really well with bundler, so it's not recommended.
