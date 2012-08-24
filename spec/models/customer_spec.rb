@@ -11,12 +11,12 @@ describe Customer do
   
   it 'should require a name if company is not set' do
     @customer.should_not be_valid
-    @customer.errors.on(:name).should_not be_empty
+    @customer.errors.get(:name).should_not be_empty
   end
 
   it 'should require a company if name is not set' do
     @customer.should_not be_valid
-    @customer.errors.on(:company).should_not be_empty
+    @customer.errors.get(:company).should_not be_empty
   end
   
   it 'should be valid if name is set but company is missing' do
@@ -36,7 +36,7 @@ describe Customer do
     
     @conflict_customer = Customer.new( :name => 'John Customer', :company => "ABC Company")
     @conflict_customer.should_not be_valid
-    @conflict_customer.errors.on(:name).should_not be_empty
+    @conflict_customer.errors.get(:name).should_not be_empty
   end
   
   describe 'with an invalid email' do
