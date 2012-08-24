@@ -7,7 +7,7 @@
 
 <h2><%= l(:label_customer_assign) %></h2>
 
-<% form_for :customer, :url =>{:action => 'assign', :id => @project} do |f|  %>
+<%= form_for :customer, :url =>{:action => 'assign', :id => @project} do |f|  %>
   <div class="box">
     <p>
     <label for="customer"><%= l(:label_customer) %></label>

@@ -15,4 +15,12 @@ describe CustomersController do
       response.should be_success
     end
   end
+
+  describe "GET select" do
+    it "renders the form successfully" do
+      get :select, :id => Project.find(1)
+      response.should be_success
+      response.body.should =~ /<select id="customer_id"/
+    end
+  end
 end
