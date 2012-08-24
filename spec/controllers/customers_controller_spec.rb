@@ -16,6 +16,14 @@ describe CustomersController do
     end
   end
 
+  describe "GET edit" do
+    it "renders the form successfully" do
+      customer = Customer.create(:name => "John Doe", :company => "World Company")
+      get :edit, :id => Project.find(1), :customer_id => customer
+      response.should be_success
+    end
+  end
+
   describe "GET select" do
     it "renders the form successfully" do
       get :select, :id => Project.find(1)
