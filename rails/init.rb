@@ -12,6 +12,7 @@ Redmine::Plugin.register :customer_plugin do
   url 'https://projects.littlestreamsoftware.com/projects/redmine-customers' if respond_to? :url
   author_url 'http://www.littlestreamsoftware.com' if respond_to? :author_url
 
+  requires_redmine :version_or_higher => '2.0.0'
   
   project_module :customer_module do
     permission :view_customer, {:customers => [:show]}
