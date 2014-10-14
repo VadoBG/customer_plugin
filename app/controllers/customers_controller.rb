@@ -34,6 +34,7 @@ class CustomersController < ApplicationController
 
   def update
     #@customer = Customer.find_by_id(params[:customer_id])
+    Rails.logger.debug @customer.inspect
     if @customer.update_attributes(params[:customer])
       flash[:notice] = l(:notice_successful_update)
       redirect_to :action => "list", :id => params[:id]
